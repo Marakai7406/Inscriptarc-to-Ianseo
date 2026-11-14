@@ -187,10 +187,12 @@ function build(){
   const sep=$("sep").value||";",noDep=$("nodepart").checked;
   const rows=parseCSV(csvText,sep).filter(r=>r.some(c=>c.trim())).map(r=>{r=r.slice();while(r.length&&!r[r.length-1].trim())r.pop();return r;});
 
-  // 1) colonnes 6 à 10 : "1" conservé sur la 1re ligne de chaque licence, "0" ensuite
+  // 1) colonnes 6 à 10 : "1" conservé sur la 1re ligne de chaque licence + division, "0" ensuite
+  //    (une même licence dans une division différente garde ses "1")
   const seenLic=new Set();let zeroed=0;
   rows.forEach(r=>{
-    const k=licKey(r[0]);if(!k)return;
+    const lk=licKey(r[0]);if(!lk)return;
+    const k=lk+"|"+String(r[2]??"").replace(/\s/g,"").toUpperCase();
     if(seenLic.has(k)){
       let changed=false;
       for(let i=5;i<=9;i++){if(r[i]!=="0"){r[i]="0";changed=true;}}
