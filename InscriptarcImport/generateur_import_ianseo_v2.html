@@ -232,7 +232,7 @@ function build(){
     $("result").hidden=true;return;
   }
   $("out").value=all.map(r=>r.join(sep)).join("\r\n")+"\r\n";
-  $("summary").textContent=`${rows.length} ligne(s) d'archers dont ${zeroed} passée(s) à 0 (colonnes 6-10) + ${targets.length} ligne(s) ##TARGET##`+(xMap?"":" (Excel non chargé : aucun blason ajouté)");
+  $("summary").textContent=`${rows.length} ligne(s) d'archers dont ${zeroed} inscription(s) additionnelle(s) + ${targets.length} ligne(s) ##TARGET##`+(xMap?"":" (Excel non chargé : aucun blason ajouté)");
 
   // 3) rapport
   const lost=xMap?[...xMap.entries()].filter(([k,e])=>!usedX.has(k)&&(e.tri==="o"||e.tri==="oui")&&e.arm!=="co").map(([k,e])=>`Excel ligne ${e.line} : ${esc(e.lic)} départ ${esc(e.dep)} (trispot, absent du CSV)`):[];
